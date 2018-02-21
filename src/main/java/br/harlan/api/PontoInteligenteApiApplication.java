@@ -22,17 +22,6 @@ public class PontoInteligenteApiApplication {
 	@Bean 
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
-			testeRepository.deleteAll();
-			
-			testeRepository.save(new TesteDocument("Harlan"));
-			testeRepository.save(new TesteDocument("Vanessa"));
-			testeRepository.save(new TesteDocument("Maria"));
-			
-			System.out.println("Lista todos com o findAll():");
-			testeRepository.findAll().forEach(System.out::println);
-			
-			System.out.println("findByName: 'Harlan'");
-			System.out.println(testeRepository.findByName("Harlan"));
 			
 		};
 	}
