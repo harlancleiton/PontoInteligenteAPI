@@ -1,4 +1,4 @@
-package br.harlan.api.documents;
+package br.harlan.api.entities;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -8,12 +8,13 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import br.harlan.api.enums.ProfileEnum;
 
-@Document
-public class EmployeesDocument {
+//@Document(collection = "employees")
+public class EmployeesEntity {
 
-	@Id
+	//@Id
 	private String id;
 	private String name;
+	private String email;
 	private String password;
 	private String cpf;
 	private BigDecimal hourValue;
@@ -22,10 +23,12 @@ public class EmployeesDocument {
 	private ProfileEnum profileEnum;
 	private Date creationDate;
 	private Date updateDate;
-	@DBRef
-	private List<PointReleases> pointReleases;
-	
-	public EmployeesDocument() {
+	//@DBRef
+	private List<PointReleasesEntity> pointReleases;
+	//@DBRef
+	private CompanyEntity companyDocument;
+
+	public EmployeesEntity() {
 	}
 
 	public String getId() {
@@ -42,6 +45,14 @@ public class EmployeesDocument {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -108,16 +119,27 @@ public class EmployeesDocument {
 		this.updateDate = updateDate;
 	}
 
-	public List<PointReleases> getPointReleases() {
+	public List<PointReleasesEntity> getPointReleases() {
 		return pointReleases;
 	}
 
-	public void setPointReleases(List<PointReleases> pointReleases) {
+	public void setPointReleases(List<PointReleasesEntity> pointReleases) {
 		this.pointReleases = pointReleases;
+	}
+
+	public CompanyEntity getCompanyDocument() {
+		return companyDocument;
+	}
+
+	public void setCompanyDocument(CompanyEntity companyDocument) {
+		this.companyDocument = companyDocument;
 	}
 
 	@Override
 	public String toString() {
-		return "EmployeesDocuments [id=" + id + ", name=" + name + "]";
+		return "EmployeesDocument [id=" + id + ", name=" + name + ", password=" + password + ", cpf=" + cpf
+				+ ", hourValue=" + hourValue + ", hourPerDay=" + hourPerDay + ", hourLunch=" + hourLunch
+				+ ", profileEnum=" + profileEnum + ", creationDate=" + creationDate + ", updateDate=" + updateDate
+				+ ", companyDocument=" + companyDocument + "]";
 	}
 }

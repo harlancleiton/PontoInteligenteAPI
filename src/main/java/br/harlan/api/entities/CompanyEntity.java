@@ -1,4 +1,4 @@
-package br.harlan.api.documents;
+package br.harlan.api.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,19 +7,19 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
-public class CompanyDocument implements Serializable {
+//@Document(collection = "company")
+public class CompanyEntity implements Serializable {
 
 	private static final long serialVersionUID = 6641590400232799000L;
-	
-	@Id
+
+	//@Id
 	private String id;
 	private String socialName;
 	private String cnpj;
 	private Date creationDate;
 	private Date updateDate;
-	@DBRef
-	private List<EmployeesDocument> employees;
+	//@DBRef
+	private List<EmployeesEntity> employees;
 
 	public String getId() {
 		return id;
@@ -61,11 +61,11 @@ public class CompanyDocument implements Serializable {
 		this.updateDate = updateDate;
 	}
 
-	public List<EmployeesDocument> getEmployees() {
+	public List<EmployeesEntity> getEmployees() {
 		return employees;
 	}
 
-	public void setEmployees(List<EmployeesDocument> employees) {
+	public void setEmployees(List<EmployeesEntity> employees) {
 		this.employees = employees;
 	}
 
