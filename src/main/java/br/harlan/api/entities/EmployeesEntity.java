@@ -3,39 +3,89 @@ package br.harlan.api.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Optional;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import br.harlan.api.enums.ProfileEnum;
 
-//@Document(collection = "employees")
+@Entity
+@Table(name = "employees")
 public class EmployeesEntity {
 
-	//@Id
-	private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@Column(name = "name", nullable = false)
 	private String name;
+
+	@Column(name = "email", nullable = false)
 	private String email;
+
+	@Column(name = "password", nullable = false)
 	private String password;
+
+	@Column(name = "cpf", nullable = false)
 	private String cpf;
+
+	@Column(name = "hour_value", nullable = false)
 	private BigDecimal hourValue;
+
+	@Column(name = "hour_per_day", nullable = true)
 	private Float hourPerDay;
+
+	@Column(name = "hour_lunch", nullable = true)
 	private Float hourLunch;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "profile", nullable = false)
 	private ProfileEnum profileEnum;
+
+	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
+
+	@Column(name = "update_date", nullable = false)
 	private Date updateDate;
-	//@DBRef
+
+	@OneToMany(mappedBy = "employeesEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PointReleasesEntity> pointReleases;
-	//@DBRef
-	private CompanyEntity companyDocument;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private CompanyEntity companyEntity;
+
+	public void prePersist() {
+		final Date currentDate = new Date();
+		creationDate = currentDate;
+		updateDate = currentDate;
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		final Date currentDate = new Date();
+		updateDate = currentDate;
+	}
 
 	public EmployeesEntity() {
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,12 +125,22 @@ public class EmployeesEntity {
 		return hourValue;
 	}
 
+	@Transient
+	public Optional<BigDecimal> getHourValueOpt() {
+		return Optional.ofNullable(hourValue);
+	}
+
 	public void setHourValue(BigDecimal hourValue) {
 		this.hourValue = hourValue;
 	}
 
 	public Float getHourPerDay() {
 		return hourPerDay;
+	}
+
+	@Transient
+	public Optional<Float> getHourPerDayOpt() {
+		return Optional.ofNullable(hourPerDay);
 	}
 
 	public void setHourPerDay(Float hourPerDay) {
@@ -126,20 +186,22 @@ public class EmployeesEntity {
 	public void setPointReleases(List<PointReleasesEntity> pointReleases) {
 		this.pointReleases = pointReleases;
 	}
-
-	public CompanyEntity getCompanyDocument() {
-		return companyDocument;
+	
+	public CompanyEntity getCompanyEntity() {
+		return companyEntity;
 	}
 
-	public void setCompanyDocument(CompanyEntity companyDocument) {
-		this.companyDocument = companyDocument;
+	public void setCompanyEntity(CompanyEntity companyEntity) {
+		this.companyEntity = companyEntity;
 	}
 
 	@Override
 	public String toString() {
-		return "EmployeesDocument [id=" + id + ", name=" + name + ", password=" + password + ", cpf=" + cpf
-				+ ", hourValue=" + hourValue + ", hourPerDay=" + hourPerDay + ", hourLunch=" + hourLunch
+		return "EmployeesEntity [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", cpf="
+				+ cpf + ", hourValue=" + hourValue + ", hourPerDay=" + hourPerDay + ", hourLunch=" + hourLunch
 				+ ", profileEnum=" + profileEnum + ", creationDate=" + creationDate + ", updateDate=" + updateDate
-				+ ", companyDocument=" + companyDocument + "]";
+				+ ", companyEntity=" + companyEntity + "]";
 	}
+
+	
 }

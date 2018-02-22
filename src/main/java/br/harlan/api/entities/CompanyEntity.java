@@ -3,29 +3,65 @@ package br.harlan.api.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-//@Document(collection = "company")
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "company")
 public class CompanyEntity implements Serializable {
 
 	private static final long serialVersionUID = 6641590400232799000L;
 
-	//@Id
-	private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@Column(name = "social_name", nullable = false)
 	private String socialName;
+	
+	@Column(name = "cnpj", nullable = false)
 	private String cnpj;
+	
+	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
+	
+	@Column(name = "update_date")
 	private Date updateDate;
-	//@DBRef
+	
+	@OneToMany(mappedBy = "companyEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<EmployeesEntity> employees;
 
-	public String getId() {
+	public CompanyEntity() {
+	}
+
+	@PrePersist
+	public void prePersist() {
+		final Date currentDate = new Date();
+		creationDate = currentDate;
+		updateDate = currentDate;
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
+		final Date currentDate = new Date();
+		updateDate = currentDate;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
