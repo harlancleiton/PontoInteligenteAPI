@@ -1,24 +1,25 @@
 package br.harlan.api.documents;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "company")
-public class CompanyDocument {
+@Document
+public class CompanyDocument implements Serializable {
 
+	private static final long serialVersionUID = 6641590400232799000L;
+	
 	@Id
 	private String id;
 	private String socialName;
 	private String cnpj;
-	@DBRef
 	private Date creationDate;
 	private Date updateDate;
-
-	private List<EmployeesDocuments> employees;
+	@DBRef
+	private List<EmployeesDocument> employees;
 
 	public String getId() {
 		return id;
@@ -60,12 +61,17 @@ public class CompanyDocument {
 		this.updateDate = updateDate;
 	}
 
-	public List<EmployeesDocuments> getEmployees() {
+	public List<EmployeesDocument> getEmployees() {
 		return employees;
 	}
 
-	public void setEmployees(List<EmployeesDocuments> employees) {
+	public void setEmployees(List<EmployeesDocument> employees) {
 		this.employees = employees;
 	}
 
+	@Override
+	public String toString() {
+		return "CompanyDocument [id=" + id + ", socialName=" + socialName + ", cnpj=" + cnpj + ", creationDate="
+				+ creationDate + ", updateDate=" + updateDate + "]";
+	}
 }
