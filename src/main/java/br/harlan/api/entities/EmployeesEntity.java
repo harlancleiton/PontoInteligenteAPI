@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -41,7 +42,7 @@ public class EmployeesEntity {
 	@Column(name = "cpf", nullable = false)
 	private String cpf;
 
-	@Column(name = "hour_value", nullable = false)
+	@Column(name = "hour_value", nullable = true)
 	private BigDecimal hourValue;
 
 	@Column(name = "hour_per_day", nullable = true)
@@ -66,6 +67,7 @@ public class EmployeesEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private CompanyEntity companyEntity;
 
+	@PrePersist
 	public void prePersist() {
 		final Date currentDate = new Date();
 		creationDate = currentDate;

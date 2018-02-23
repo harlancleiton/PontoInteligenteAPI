@@ -10,8 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import br.harlan.api.enums.TypeReleaseEnum;
 
 @Entity
@@ -22,6 +26,7 @@ public class PointReleasesEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "release_date", nullable = false)
 	private Date releaseDate;
 
@@ -44,6 +49,7 @@ public class PointReleasesEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private EmployeesEntity employeesEntity;
 
+	@PrePersist
 	public void prePersist() {
 		final Date currentDate = new Date();
 		creationDate = currentDate;

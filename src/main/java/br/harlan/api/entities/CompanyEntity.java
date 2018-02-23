@@ -25,19 +25,19 @@ public class CompanyEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "social_name", nullable = false)
 	private String socialName;
-	
+
 	@Column(name = "cnpj", nullable = false)
 	private String cnpj;
-	
+
 	@Column(name = "creation_date", nullable = false)
 	private Date creationDate;
-	
-	@Column(name = "update_date")
+
+	@Column(name = "update_date", nullable = false)
 	private Date updateDate;
-	
+
 	@OneToMany(mappedBy = "companyEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<EmployeesEntity> employees;
 
@@ -50,7 +50,7 @@ public class CompanyEntity implements Serializable {
 		creationDate = currentDate;
 		updateDate = currentDate;
 	}
-	
+
 	@PreUpdate
 	public void preUpdate() {
 		final Date currentDate = new Date();
