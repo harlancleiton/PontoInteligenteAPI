@@ -23,7 +23,6 @@ public class CompanyServiceTest {
 
 	@MockBean
 	private CompanyRepository companyRepository;
-
 	@Autowired(required = true)
 	private CompanyService companyService;
 

@@ -26,7 +26,7 @@ import br.harlan.api.utils.PasswordUtil;
 @SpringBootTest
 @ActiveProfiles("test")
 public class PointReleasesRepositoryTest {
- 
+
 	@Autowired
 	private PointReleasesRepository pointReleasesRepository;
 	@Autowired
@@ -34,30 +34,30 @@ public class PointReleasesRepositoryTest {
 	@Autowired
 	CompanyRepository companyRepository;
 	private Long employeesId;
-	
+
 	@Before
-	public void setUp() throws Exception{
+	public void setUp() throws Exception {
 		CompanyEntity companyEntity = companyRepository.save(getCompany());
-		
+
 		EmployeesEntity employeesEntity = employeesRepository.save(getEmployee(companyEntity));
 		employeesId = employeesEntity.getId();
-		
+
 		pointReleasesRepository.save(getPointReleases(employeesEntity));
 		pointReleasesRepository.save(getPointReleases(employeesEntity));
 	}
-	
+
 	@After
 	public void tearDown() throws Exception {
 		companyRepository.deleteAll();
 	}
-	
+
 	private CompanyEntity getCompany() {
 		CompanyEntity company = new CompanyEntity();
 		company.setSocialName("Empresa de exemplo");
 		company.setCnpj("51463645000100");
 		return company;
 	}
-	
+
 	private PointReleasesEntity getPointReleases(EmployeesEntity employee) {
 		PointReleasesEntity pointRelease = new PointReleasesEntity();
 		pointRelease.setReleaseDate(new Date());
@@ -65,7 +65,7 @@ public class PointReleasesRepositoryTest {
 		pointRelease.setEmployeesEntity(employee);
 		return pointRelease;
 	}
-	
+
 	private EmployeesEntity getEmployee(CompanyEntity company) throws NoSuchAlgorithmException {
 		EmployeesEntity employeesEntity = new EmployeesEntity();
 		employeesEntity.setName("Fulano de Tal");
@@ -76,11 +76,11 @@ public class PointReleasesRepositoryTest {
 		employeesEntity.setCompanyEntity(company);
 		return employeesEntity;
 	}
-	
+
 	@Test
 	public void testFindPointReleaseByEmployeesId() {
 		List<PointReleasesEntity> pointReleases = pointReleasesRepository.findByEmployeesEntityId(employeesId);
-		
+
 		assertEquals(2, pointReleases.size());
 	}
 }
