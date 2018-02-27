@@ -1,8 +1,6 @@
 package br.harlan.api.services;
 
 import java.util.Optional;
-
-import br.harlan.api.entities.CompanyEntity;
 import br.harlan.api.entities.EmployeesEntity;
 
 public interface EmployeesService {
