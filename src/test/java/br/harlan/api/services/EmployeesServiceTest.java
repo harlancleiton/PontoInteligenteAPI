@@ -3,7 +3,6 @@ package br.harlan.api.services;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Optional;
-import java.util.jar.Attributes.Name;
 
 import org.junit.Before;
 import org.junit.Test;
