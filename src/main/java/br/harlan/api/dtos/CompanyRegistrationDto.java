@@ -18,12 +18,12 @@ public class CompanyRegistrationDto {
 	@NotEmpty(message = "Senha não pode ser vazia.")
 	private String password;
 	@NotEmpty(message = "CPF não pode ser vazio.")
-	@CPF
+	@CPF(message = "CPF inválido")
 	private String cpf;
 	@NotEmpty(message = "Razão Social não pode ser vazia.")
 	private String socialName;
 	@NotEmpty(message = "CNPJ não pode ser vazio.")
-	@CNPJ
+	@CNPJ(message = "CNPJ inválido")
 	private String cnpj;
 
 	public CompanyRegistrationDto() {
