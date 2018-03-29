@@ -149,11 +149,15 @@ public class EmployeesEntity {
 		this.hourPerDay = hourPerDay;
 	}
 
-	public Float getHourLunch() {
+	public Float getHourLaunch() {
 		return hourLaunch;
 	}
+	
+	public Optional<Float> getHourLaunchOpt() {
+		return Optional.ofNullable(hourLaunch);
+	}
 
-	public void setHourLunch(Float hourLunch) {
+	public void setHourLaunch(Float hourLunch) {
 		this.hourLaunch = hourLunch;
 	}
 

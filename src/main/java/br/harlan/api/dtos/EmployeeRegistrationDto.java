@@ -1,9 +1,6 @@
 package br.harlan.api.dtos;
 
-import java.math.BigDecimal;
 import java.util.Optional;
-
-import javax.persistence.Column;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;

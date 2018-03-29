@@ -20,8 +20,6 @@ import br.harlan.api.dtos.CompanyRegistrationDto;
 import br.harlan.api.entities.CompanyEntity;
 import br.harlan.api.entities.EmployeesEntity;
 import br.harlan.api.enums.ProfileEnum;
-import br.harlan.api.repositories.CompanyRepository;
-import br.harlan.api.repositories.EmployeesRepository;
 import br.harlan.api.response.Response;
 import br.harlan.api.services.CompanyService;
 import br.harlan.api.services.EmployeesService;
@@ -36,12 +34,8 @@ public class CompanyRegistrationController {
 
 	@Autowired
 	private CompanyService companyService;
-	// @Autowired
-	// private CompanyRepository companyRepository;
 	@Autowired
 	private EmployeesService employeesService;
-	// @Autowired
-	// private EmployeesRepository employeesRepository;
 
 	public CompanyRegistrationController() {
 	}

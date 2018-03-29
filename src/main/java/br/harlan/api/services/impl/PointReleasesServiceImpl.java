@@ -15,9 +15,9 @@ import br.harlan.api.services.PointReleasesService;
 
 @Service
 public class PointReleasesServiceImpl implements PointReleasesService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(PointReleasesServiceImpl.class);
-	
+
 	@Autowired
 	PointReleasesRepository pointReleasesRepository;
 
