@@ -12,12 +12,12 @@ import br.harlan.api.entities.PointReleasesEntity;
 
 @Transactional(readOnly = true)
 @NamedQueries({
-		@NamedQuery(name = "PointReleasesRepository.findByEmployeesId", 
-				query = "select release from PointReleasesRepository release where release.employeesEntity.id = :employeesEntityId") 
+		@NamedQuery(name = "PointReleasesRepository.findByEmployeesEntityId", 
+				query = "select release from PointReleasesRepository release where release.employees.id = :employeesId") 
 		})
 public interface PointReleasesRepository extends JpaRepository<PointReleasesEntity, Long> {
 	
-	List<PointReleasesEntity> findByEmployeesEntityId(@Param("employeesEntityId") Long employeesEntityId);
+	List<PointReleasesEntity> findByEmployeesId(@Param("employeesId") Long employeesId);
 
-	Page<PointReleasesEntity> findByEmployeesEntityId(@Param("employeesEntityId") Long employeesEntityId, Pageable pageable);
+	Page<PointReleasesEntity> findByEmployeesId(@Param("employeesId") Long employeesId, Pageable pageable);
 }

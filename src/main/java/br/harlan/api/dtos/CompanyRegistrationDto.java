@@ -10,9 +10,9 @@ public class CompanyRegistrationDto {
 
 	private Long id;
 	@NotEmpty(message = "Nome não pode ser vazio.")
-	@Length(min = 5, max = 255, message = "O nome deve conter no mínimo 5 caracteres, e no máximo 255")
-	@Email(message = "Email invalido")
+	@Length(min = 5, max = 255, message = "O nome deve conter no mínimo 5 caracteres, e no máximo 255.")
 	private String name;
+	@Email(message = "Email invalido")
 	@NotEmpty(message = "Email não pode ser vazio.")
 	private String email;
 	@NotEmpty(message = "Senha não pode ser vazia.")
@@ -20,10 +20,11 @@ public class CompanyRegistrationDto {
 	@NotEmpty(message = "CPF não pode ser vazio.")
 	@CPF(message = "CPF inválido")
 	private String cpf;
+	@Length(min = 5, max = 200, message = "Razão Social deve conter entre 5 e 200 caracteres.")
 	@NotEmpty(message = "Razão Social não pode ser vazia.")
 	private String socialName;
 	@NotEmpty(message = "CNPJ não pode ser vazio.")
-	@CNPJ(message = "CNPJ inválido")
+	@CNPJ(message = "CNPJ inválido.")
 	private String cnpj;
 
 	public CompanyRegistrationDto() {

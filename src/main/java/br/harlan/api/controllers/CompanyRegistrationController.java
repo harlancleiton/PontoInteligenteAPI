@@ -1,7 +1,5 @@
 package br.harlan.api.controllers;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.security.NoSuchAlgorithmException;
 
 import javax.validation.Valid;
@@ -38,17 +36,18 @@ public class CompanyRegistrationController {
 
 	@Autowired
 	private CompanyService companyService;
-	@Autowired
-	private CompanyRepository companyRepository;
+	// @Autowired
+	// private CompanyRepository companyRepository;
 	@Autowired
 	private EmployeesService employeesService;
-	@Autowired
-	private EmployeesRepository employeesRepository;
+	// @Autowired
+	// private EmployeesRepository employeesRepository;
 
 	public CompanyRegistrationController() {
 	}
 
 	/**
+	 * 
 	 * 
 	 * @param companyRegistrationDto
 	 * @param bindingResult
@@ -66,8 +65,8 @@ public class CompanyRegistrationController {
 
 		CompanyEntity companyEntity = dtoToCompanyEntity(companyRegistrationDto);
 		EmployeesEntity employeesEntity = dtoToEmployeesEntity(companyRegistrationDto, bindingResult);
-		
-		if(bindingResult.hasErrors()) {
+
+		if (bindingResult.hasErrors()) {
 			LOGGER.error("Erro ao validar dados do Cadastro PJ: {}", bindingResult.getAllErrors());
 			bindingResult.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
@@ -76,9 +75,9 @@ public class CompanyRegistrationController {
 		companyService.create(companyEntity);
 		employeesEntity.setCompanyEntity(companyEntity);
 		employeesService.create(employeesEntity);
-		
-		response.setData();
-		return response;
+
+		response.setData(entityToCompanyRegistrionDto(employeesEntity));
+		return ResponseEntity.ok(response);
 	}
 
 	/**
@@ -89,11 +88,11 @@ public class CompanyRegistrationController {
 	 */
 	private void validate(CompanyRegistrationDto companyRegistrationDto, BindingResult bindingResult) {
 		companyService.findByCnpj(companyRegistrationDto.getCnpj())
-				.ifPresent(company -> bindingResult.addError(new ObjectError("Empresa", "Empresa já existe")));
+				.ifPresent(company -> bindingResult.addError(new ObjectError("Empresa", "Empresa já cadastrada.")));
 		employeesService.findByCpf(companyRegistrationDto.getCpf()).ifPresent(
-				employees -> bindingResult.addError(new ObjectError("Funcionario", "Funcionario já existe")));
+				employees -> bindingResult.addError(new ObjectError("Funcionario", "Funcionario já cadastrado.")));
 		employeesService.findByEmail(companyRegistrationDto.getEmail())
-				.ifPresent(employees -> bindingResult.addError(new ObjectError("Funcionario", "Email já cadastrado")));
+				.ifPresent(employees -> bindingResult.addError(new ObjectError("Funcionario", "Email já cadastrado.")));
 
 	}
 
@@ -128,21 +127,20 @@ public class CompanyRegistrationController {
 		employeesEntity.setPassword(PasswordUtil.generateBCrypt(companyRegistrationDto.getPassword()));
 		return employeesEntity;
 	}
-	
+
 	/**
 	 * Popula o DTO de cadastro com os dados do funcionário e empresa
 	 * 
 	 * @param employeesEntity
 	 * @return companyRegistrationDto
 	 */
-	private CompanyRegistrationDto entityToDto(EmployeesEntity employeesEntity) {
+	private CompanyRegistrationDto entityToCompanyRegistrionDto(EmployeesEntity employeesEntity) {
 		CompanyRegistrationDto companyRegistrationDto = new CompanyRegistrationDto();
 		companyRegistrationDto.setId(employeesEntity.getId());
 		companyRegistrationDto.setName(employeesEntity.getName());
 		companyRegistrationDto.setEmail(employeesEntity.getEmail());
 		companyRegistrationDto.setCpf(employeesEntity.getCpf());
-		companyRegistrationDto.setCnpj(employeesEntity.cnpj);
-		companyRegistrationDto.setCnpj(employeesEntity.getCompanyEntity().getCnpj()());
+		companyRegistrationDto.setCnpj(employeesEntity.getCompanyEntity().getCnpj());
 		companyRegistrationDto.setSocialName(employeesEntity.getCompanyEntity().getSocialName());
 		return companyRegistrationDto;
 	}

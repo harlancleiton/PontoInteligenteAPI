@@ -38,7 +38,7 @@ public class CompanyEntity implements Serializable {
 	@Column(name = "update_date", nullable = false)
 	private Date updateDate;
 
-	@OneToMany(mappedBy = "companyEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<EmployeesEntity> employees;
 
 	public CompanyEntity() {

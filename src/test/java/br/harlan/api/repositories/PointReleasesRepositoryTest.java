@@ -79,7 +79,7 @@ public class PointReleasesRepositoryTest {
 
 	@Test
 	public void testFindPointReleaseByEmployeesId() {
-		List<PointReleasesEntity> pointReleases = pointReleasesRepository.findByEmployeesEntityId(employeesId);
+		List<PointReleasesEntity> pointReleases = pointReleasesRepository.findByEmployeesId(employeesId);
 
 		assertEquals(2, pointReleases.size());
 	}

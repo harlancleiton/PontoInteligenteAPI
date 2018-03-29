@@ -47,7 +47,7 @@ public class PointReleasesEntity {
 	private TypeReleaseEnum typeReleaseEnum;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	private EmployeesEntity employeesEntity;
+	private EmployeesEntity employees;
 
 	@PrePersist
 	public void prePersist() {
@@ -119,17 +119,17 @@ public class PointReleasesEntity {
 	}
 
 	public EmployeesEntity getEmployeesEntity() {
-		return employeesEntity;
+		return employees;
 	}
 
 	public void setEmployeesEntity(EmployeesEntity employeesEntity) {
-		this.employeesEntity = employeesEntity;
+		this.employees = employeesEntity;
 	}
 
 	@Override
 	public String toString() {
 		return "PointReleasesEntity [id=" + id + ", releaseDate=" + releaseDate + ", description=" + description
 				+ ", location=" + location + ", creationDate=" + creationDate + ", updateDate=" + updateDate
-				+ ", typeReleaseEnum=" + typeReleaseEnum + ", employeesEntity=" + employeesEntity + "]";
+				+ ", typeReleaseEnum=" + typeReleaseEnum + ", employeesEntity=" + employees + "]";
 	}
 }

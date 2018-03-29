@@ -40,7 +40,7 @@ public class PointReleasesServiceTest {
 //		BDDMockito.given(pointReleasesRepository.findByEmployeesEntityId(Mockito.anyLong()))
 //				.willReturn(new ArrayList<PointReleasesEntity>());
 		BDDMockito
-				.given(pointReleasesRepository.findByEmployeesEntityId(Mockito.anyLong(),
+				.given(pointReleasesRepository.findByEmployeesId(Mockito.anyLong(),
 						Mockito.any(PageRequest.class)))
 				.willReturn(new PageImpl<PointReleasesEntity>(new ArrayList<PointReleasesEntity>()));
 		BDDMockito.given(pointReleasesRepository.findOne(Mockito.anyLong())).willReturn(new PointReleasesEntity());

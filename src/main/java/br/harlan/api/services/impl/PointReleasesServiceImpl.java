@@ -24,7 +24,7 @@ public class PointReleasesServiceImpl implements PointReleasesService {
 	@Override
 	public Page<PointReleasesEntity> findByEmployeeId(Long id, PageRequest pageRequest) {
 		logger.info("Buscando lançamentos para o funcionario ID {}", id);
-		return pointReleasesRepository.findByEmployeesEntityId(id, pageRequest);
+		return pointReleasesRepository.findByEmployeesId(id, pageRequest);
 	}
 
 	@Override

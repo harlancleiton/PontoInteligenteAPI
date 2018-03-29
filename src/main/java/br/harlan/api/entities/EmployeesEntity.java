@@ -48,8 +48,8 @@ public class EmployeesEntity {
 	@Column(name = "hour_per_day", nullable = true)
 	private Float hourPerDay;
 
-	@Column(name = "hour_lunch", nullable = true)
-	private Float hourLunch;
+	@Column(name = "hour_launch", nullable = true)
+	private Float hourLaunch;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "profile", nullable = false)
@@ -61,11 +61,11 @@ public class EmployeesEntity {
 	@Column(name = "update_date", nullable = false)
 	private Date updateDate;
 
-	@OneToMany(mappedBy = "employeesEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "employees", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PointReleasesEntity> pointReleases;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	private CompanyEntity companyEntity;
+	private CompanyEntity company;
 
 	@PrePersist
 	public void prePersist() {
@@ -150,11 +150,11 @@ public class EmployeesEntity {
 	}
 
 	public Float getHourLunch() {
-		return hourLunch;
+		return hourLaunch;
 	}
 
 	public void setHourLunch(Float hourLunch) {
-		this.hourLunch = hourLunch;
+		this.hourLaunch = hourLunch;
 	}
 
 	public ProfileEnum getProfileEnum() {
@@ -190,19 +190,19 @@ public class EmployeesEntity {
 	}
 	
 	public CompanyEntity getCompanyEntity() {
-		return companyEntity;
+		return company;
 	}
 
 	public void setCompanyEntity(CompanyEntity companyEntity) {
-		this.companyEntity = companyEntity;
+		this.company = companyEntity;
 	}
 
 	@Override
 	public String toString() {
 		return "EmployeesEntity [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", cpf="
-				+ cpf + ", hourValue=" + hourValue + ", hourPerDay=" + hourPerDay + ", hourLunch=" + hourLunch
+				+ cpf + ", hourValue=" + hourValue + ", hourPerDay=" + hourPerDay + ", hourLunch=" + hourLaunch
 				+ ", profileEnum=" + profileEnum + ", creationDate=" + creationDate + ", updateDate=" + updateDate
-				+ ", companyEntity=" + companyEntity + "]";
+				+ ", companyEntity=" + company + "]";
 	}
 
 	

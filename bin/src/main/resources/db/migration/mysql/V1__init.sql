@@ -1,7 +1,6 @@
 create table company (
 	id bigint(20) NOT NULL,
     cnpj varchar(255) not null,
-    social_name varchar(255) not null,
     creation_date datetime not null,
     update_date datetime not null
 ) engine=InnoDB default charset=utf8;
@@ -16,7 +15,7 @@ create table employees(
     `profile` varchar(255) not null,
     hour_value decimal(19,2) default null,
     hour_per_day float default null,
-    hour_launch float default null,
+    hour_lunchfloat float default null,
     creation_date datetime not null,
     update_date datetime not null
 ) engine=InnoDB default charset=utf8;
