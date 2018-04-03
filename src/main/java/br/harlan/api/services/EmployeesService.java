@@ -4,6 +4,14 @@ import java.util.Optional;
 import br.harlan.api.entities.EmployeesEntity;
 
 public interface EmployeesService {
+	
+	/**
+	 * Find Employee by Id
+	 * 
+	 * @param id
+	 * @return Optional<EmployeesEntity>
+	 */
+	Optional<EmployeesEntity> findById(Long id);
 
 	/**
 	 * Find Employee by CPF

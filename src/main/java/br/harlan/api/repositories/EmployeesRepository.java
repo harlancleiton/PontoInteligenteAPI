@@ -7,6 +7,8 @@ import br.harlan.api.entities.EmployeesEntity;
 @Transactional(readOnly = true)
 public interface EmployeesRepository extends JpaRepository<EmployeesEntity, Long> {
 	
+	EmployeesEntity findById(Long id);
+	
 	EmployeesEntity findByName(String name);
 	
 	EmployeesEntity findByEmail(String email);
