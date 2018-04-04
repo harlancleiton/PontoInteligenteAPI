@@ -68,6 +68,14 @@ public class EmployeesController {
 		return ResponseEntity.ok(response);
 	}
 
+	/**
+	 * Popula o EmployeesEntity de acordo com os dados passados pelo EmployeeDto.
+	 * 
+	 * @param employeesEntity
+	 * @param employeeDto
+	 * @param bindingResult
+	 * @throws NoSuchAlgorithmException
+	 */
 	private void updateEmployeeEntity(EmployeesEntity employeesEntity, EmployeeDto employeeDto,
 			BindingResult bindingResult) throws NoSuchAlgorithmException {
 		employeesEntity.setName(employeeDto.getName());
@@ -82,18 +90,29 @@ public class EmployeesController {
 		employeeDto.getHourPerDay().ifPresent(hourPerDay -> employeesEntity.setHourLaunch(Float.valueOf(hourPerDay)));
 		employeesEntity.setHourValue(null);
 		employeeDto.getHourValue().ifPresent(hourValue -> employeesEntity.setHourValue(new BigDecimal(hourValue)));
-		
-		if(employeeDto.getPassword().isPresent()) {
+
+		if (employeeDto.getPassword().isPresent()) {
 			employeesEntity.setPassword(PasswordUtil.generateBCrypt(employeeDto.getPassword().get()));
 		}
 	}
 
+	/**
+	 * Retorna um EmployeeDto com os dados do funcionário.
+	 * 
+	 * @param employeesEntity
+	 * @return
+	 */
 	private EmployeeDto entityToEmployeeDto(EmployeesEntity employeesEntity) {
 		EmployeeDto employeeDto = new EmployeeDto();
 		employeeDto.setId(employeesEntity.getId());
 		employeeDto.setName(employeesEntity.getName());
 		employeeDto.setEmail(employeesEntity.getEmail());
-		//employeesEntity.getHourLaunchOpt().ifPresent();
+		employeesEntity.getHourLaunchOpt()
+				.ifPresent(hourLaunch -> employeeDto.setHourLaunch(Optional.of(Float.toString(hourLaunch))));
+		employeesEntity.getHourPerDayOpt()
+				.ifPresent(hourPerDay -> employeeDto.setHourPerDay(Optional.of(Float.toString(hourPerDay))));
+		employeesEntity.getHourValueOpt()
+				.ifPresent(hourValue -> employeeDto.setHourValue(Optional.of(hourValue.toString())));
 		return employeeDto;
 	}
 }
